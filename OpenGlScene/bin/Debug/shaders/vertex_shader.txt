@@ -1,0 +1,22 @@
+#version 130
+
+in vec3 vertexPosition;
+in vec3 vertexNormal;
+in vec3 vertexColor;
+in vec2 vertexUV;
+
+out vec3 normal;
+out vec3 color;
+out vec2 uv;
+
+uniform mat4 projection_matrix;
+uniform mat4 view_matrix;
+uniform mat4 model_matrix;
+
+void main(void)
+{
+	normal = normalize((model_matrix * vec4(floor(vertexNormal), 0)).xyz);
+    color = vertexColor;
+	uv = vertexUV;
+    gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertexPosition, 1);
+}
